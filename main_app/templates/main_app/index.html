@@ -1,0 +1,14 @@
+{% extends 'main_app/base.html' %}
+
+{% block title %}Home - XYZ Insurance{% endblock %}
+
+{% block content %}
+<div class="jumbotron">
+    <h1 class="display-4">Welcome to XYZ Insurance Portal</h1>
+    <p class="lead">Manage policies, submit claims, and track insurance status.</p>
+    <hr class="my-4">
+    <p>Get started by managing policies or submitting a claim.</p>
+    <a class="btn btn-primary btn-lg" href="{% url 'policy_list' %}" role="button">Manage Policies</a>
+    <a class="btn btn-secondary btn-lg" href="{% url 'claim_list' %}" role="button">Submit a Claim</a>
+</div>
+{% endblock %}

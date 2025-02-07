@@ -1,0 +1,31 @@
+{% extends 'base_generic.html' %}
+
+{% block content %}
+  <h2>Agent List</h2>
+  <table>
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Email</th>
+        <th>Phone</th>
+        <th>Agency</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for agent in agents %}
+      <tr>
+        <td><a href="{% url 'agent_detail' agent.pk %}">{{ agent.name }}</a></td>
+        <td>{{ agent.email }}</td>
+        <td>{{ agent.phone }}</td>
+        <td>{{ agent.agency }}</td>
+        <td>
+          <a href="{% url 'agent_update' agent.pk %}">Edit</a> |
+          <a href="{% url 'agent_delete' agent.pk %}">Delete</a>
+        </td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+  <a href="{% url 'agent_create' %}">Add New Agent</a>
+{% endblock %}

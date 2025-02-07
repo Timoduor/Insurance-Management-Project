@@ -1,0 +1,29 @@
+{% extends 'base_generic.html' %}
+
+{% block content %}
+  <h2>Transaction List</h2>
+  <table>
+    <thead>
+      <tr>
+        <th>Customer</th>
+        <th>Policy</th>
+        <th>Amount</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for transaction in transactions %}
+      <tr>
+        <td><a href="{% url 'transaction_detail' transaction.pk %}">{{ transaction.customer.name }}</a></td>
+        <td>{{ transaction.policy.name }}</td>
+        <td>{{ transaction.amount }}</td>
+        <td>
+          <a href="{% url 'transaction_update' transaction.pk %}">Edit</a> |
+          <a href="{% url 'transaction_delete' transaction.pk %}">Delete</a>
+        </td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+  <a href="{% url 'transaction_create' %}">Add New Transaction</a>
+{% endblock %}

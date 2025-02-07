@@ -1,0 +1,10 @@
+{% extends 'base_generic.html' %}
+
+{% block content %}
+  <h2>Agent Detail: {{ agent.name }}</h2>
+  <p>Email: {{ agent.email }}</p>
+  <p>Phone: {{ agent.phone }}</p>
+  <p>Agency: {{ agent.agency }}</p>
+  <a href="{% url 'agent_update' agent.pk %}">Edit</a> |
+  <a href="{% url 'agent_delete' agent.pk %}">Delete</a>
+{% endblock %}
