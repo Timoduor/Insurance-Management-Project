@@ -1,10 +1,20 @@
-{% extends 'base_generic.html' %}
+{% extends "base.html" %}
 
 {% block content %}
-  <h2>{% if form.instance.pk %}Edit Transaction{% else %}Add New Transaction{% endif %}</h2>
-  <form method="post">
-    {% csrf_token %}
-    {{ form.as_p }}
-    <button type="submit">{% if form.instance.pk %}Update{% else %}Save{% endif %}</button>
-  </form>
+<div class="container mt-4">
+    <h2>{% if form.instance.pk %}Edit Transaction{% else %}Create New Transaction{% endif %}</h2>
+    
+    <form method="post">
+        {% csrf_token %}
+        <!-- Render form fields dynamically -->
+        <div class="form-group">
+            {{ form.as_p }}
+        </div>
+        
+        <button type="submit" class="btn btn-success">
+            {% if form.instance.pk %}Update Transaction{% else %}Save Transaction{% endif %}
+        </button>
+        <a href="{% url 'transaction_list' %}" class="btn btn-secondary">Cancel</a>
+    </form>
+</div>
 {% endblock %}

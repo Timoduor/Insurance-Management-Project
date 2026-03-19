@@ -1,16 +1,26 @@
 from django.db import models
 from django.contrib.auth.models import AbstractUser
 from django.utils import timezone
+from datetime import date
+
 
 # Custom User Model
-class User(AbstractUser):  # Extends Django's built-in User model
-    phone_number = models.CharField(max_length=15, unique=True, null=True, blank=True)
-    address = models.TextField(null=True, blank=True)
-    date_of_birth = models.DateField(null=True, blank=True)
-    is_agent = models.BooleanField(default=False)  # To differentiate between customers and agents
+class User(AbstractUser):
+    # Add custom fields to the User model
+
+    date_of_birth = models.DateField(default=date.today, null=True, blank=True)
+    phone_number = models.CharField(max_length=15, null=True, blank=True)
+    gender = models.CharField(max_length=6, choices=[('Male', 'Male'), ('Female', 'Female'), ('Other', 'Other')], null=True, blank=True)
+    profile_picture = models.ImageField(upload_to='profile_pictures/', null=True, blank=True)
+    role = models.CharField(
+        max_length=20,
+        choices=[('Customer', 'Customer'), ('Agent', 'Agent'), ('Admin', 'Admin')],
+        default='Customer'
+    )
     
     def __str__(self):
-        return self.username
+        return self.username  # You can return a custom string representation here
+
 
 # Policy Model
 class Policy(models.Model):
@@ -22,8 +32,11 @@ class Policy(models.Model):
     ]
     
     name = models.CharField(max_length=255, default='Default Name')
+    
+    # Use the ForeignKey relationship with Customer here
+    customer = models.ForeignKey('main_app.Customer', on_delete=models.CASCADE, null=True)  # Use a string reference
     policy_number = models.CharField(max_length=100, unique=True)
-    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='policies')
+    user = models.ForeignKey('main_app.User', on_delete=models.CASCADE, related_name='policies')
     policy_type = models.CharField(max_length=20, choices=POLICY_TYPES)
     coverage_amount = models.DecimalField(max_digits=12, decimal_places=2)
     premium = models.DecimalField(max_digits=10, decimal_places=2, default=1000)
@@ -63,28 +76,36 @@ class InsurancePlan(models.Model):
 
 # Payment Model
 class Payment(models.Model):
-    policy = models.ForeignKey(Policy, on_delete=models.CASCADE)
-    payment_date = models.DateField()
-    amount = models.DecimalField(max_digits=10, decimal_places=2)
-    payment_method = models.CharField(max_length=50)
-    
+    customer = models.ForeignKey('Customer', on_delete=models.CASCADE, null=True)  # Link to Customer model
+    policy = models.ForeignKey(Policy, on_delete=models.CASCADE)  # Link to Policy model
+    amount = models.DecimalField(max_digits=10, decimal_places=2)  # Payment amount (up to 10 digits)
+    payment_date = models.DateField()  # Date of payment
+    transaction_type = models.CharField(
+        max_length=10, 
+        choices=[('Credit', 'Credit'), ('Debit', 'Debit')],
+        default='Credit'  # Move default inside the field definition
+    )  # Transaction type (either 'Credit' or 'Debit')
+
     def __str__(self):
-        return f"{self.payment_date} - {self.amount}"
+        return f"Payment for {self.customer} on {self.payment_date}"
+
+
 
 # Customer Model
 class Customer(models.Model):
-    user = models.OneToOneField(User, on_delete=models.CASCADE)
-    name = models.CharField(max_length=100)
+    name = models.CharField(max_length=255)
     email = models.EmailField()
-    phone = models.CharField(max_length=15)
+    phone_number = models.CharField(max_length=15)  # Add this field
     address = models.TextField()
+    date_of_birth = models.DateField(default=date.today)
+    gender =  models.CharField(max_length=6, choices=[('Male', 'Male'), ('Female', 'Female')], default='Male')  # Default added here
 
     def __str__(self):
         return self.name
 
 # Agent Model
 class Agent(models.Model):
-    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    user = models.OneToOneField('main_app.User', on_delete=models.CASCADE)
     name = models.CharField(max_length=100)
     email = models.EmailField()
     phone = models.CharField(max_length=15)

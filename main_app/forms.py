@@ -4,11 +4,11 @@ from .models import Customer, Agent, Transaction
 class CustomerForm(forms.ModelForm):
     class Meta:
         model = Customer
-        fields = ['name', 'email', 'phone', 'address']
+        fields = ['name', 'email', 'phone_number', 'address']  # Update field name to 'phone_number'
         widgets = {
             'name': forms.TextInput(attrs={'class': 'form-control'}),
             'email': forms.EmailInput(attrs={'class': 'form-control'}),
-            'phone': forms.TextInput(attrs={'class': 'form-control'}),
+            'phone_number': forms.TextInput(attrs={'class': 'form-control'}),  # Update widget to 'phone_number'
             'address': forms.Textarea(attrs={'class': 'form-control', 'rows': 2}),
         }
 

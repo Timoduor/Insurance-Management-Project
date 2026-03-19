@@ -1,10 +1,20 @@
-{% extends 'base_generic.html' %}
+{% extends "base.html" %}
 
 {% block content %}
-  <h2>{% if form.instance.pk %}Edit Agent{% else %}Add New Agent{% endif %}</h2>
-  <form method="post">
-    {% csrf_token %}
-    {{ form.as_p }}
-    <button type="submit">{% if form.instance.pk %}Update{% else %}Save{% endif %}</button>
-  </form>
+<div class="container mt-4">
+    <h2>{% if form.instance.pk %}Edit {{ form.instance._meta.model.__name__ }}{% else %}Create New {{ form.instance._meta.model.__name__ }}{% endif %}</h2>
+    
+    <form method="post">
+        {% csrf_token %}
+        <!-- Render form fields dynamically -->
+        <div class="form-group">
+            {{ form.as_p }}
+        </div>
+        
+        <button type="submit" class="btn btn-success">
+            {% if form.instance.pk %}Update {{ form.instance._meta.model.__name__ }}{% else %}Save {{ form.instance._meta.model.__name__ }}{% endif %}
+        </button>
+        <a href="{% url form.instance._meta.model.__name__.lower() %}" class="btn btn-secondary">Cancel</a>
+    </form>
+</div>
 {% endblock %}

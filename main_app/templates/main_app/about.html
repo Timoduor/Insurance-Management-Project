@@ -1,19 +1,41 @@
-
 {% extends 'main_app/base.html' %}
 
-{% block title %}About{% endblock %}
+{% block title %}About - Insurance API{% endblock %}
 
 {% block content %}
 <div class="container mt-4">
+    <h1 class="display-4 text-center">About Our Insurance Platform</h1>
+    <p class="lead text-center">Providing seamless insurance management for individuals and businesses.</p>
+    
+    <hr>
+
     <div class="row">
-        <div class="col-md-12">
-            <h1 class="display-4">About Us</h1>
-            <p class="lead">We provide insurance services for everyone.</p>
-            <hr class="my-4">
-            <p>Our mission is to offer comprehensive insurance solutions tailored to meet the diverse needs of our clients. We are committed to providing exceptional service and support to ensure peace of mind for our customers.</p>
-            <p>With a team of experienced professionals, we strive to deliver innovative and reliable insurance products that protect what matters most to you.</p>
+        <div class="col-md-6">
+            <h2>Our Mission</h2>
+            <p>
+                We strive to simplify insurance management by offering a platform where users can manage 
+                policies, submit claims, track payments, and interact with agents efficiently.
+            </p>
+        </div>
+
+        <div class="col-md-6">
+            <h2>What We Offer</h2>
+            <ul>
+                <li> Secure policy management</li>
+                <li> Easy claims submission</li>
+                <li> Transparent transactions</li>
+                <li> Dedicated support</li>
+            </ul>
         </div>
     </div>
+
+    <hr>
+
+    <h2 class="text-center">Why Choose Us?</h2>
+    <p class="text-center">
+        We are committed to providing innovative and reliable insurance solutions. Our system is designed 
+        to ensure transparency and efficiency in all transactions.
+    </p>
+
 </div>
 {% endblock %}
-

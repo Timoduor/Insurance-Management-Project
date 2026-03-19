@@ -1,14 +1,69 @@
 {% extends 'main_app/base.html' %}
 
-{% block title %}Home - XYZ Insurance{% endblock %}
+{% block title %}Insurance Portal{% endblock %}
 
 {% block content %}
-<div class="jumbotron">
-    <h1 class="display-4">Welcome to XYZ Insurance Portal</h1>
-    <p class="lead">Manage policies, submit claims, and track insurance status.</p>
-    <hr class="my-4">
-    <p>Get started by managing policies or submitting a claim.</p>
-    <a class="btn btn-primary btn-lg" href="{% url 'policy_list' %}" role="button">Manage Policies</a>
-    <a class="btn btn-secondary btn-lg" href="{% url 'claim_list' %}" role="button">Submit a Claim</a>
+<div class="container">
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <a class="navbar-brand" href="#">Insurance API</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+            aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav">
+                <li class="nav-item active"><a class="nav-link" href="{% url 'index' %}">Home</a></li>
+                <li class="nav-item"><a class="nav-link" href="{% url 'about' %}">About</a></li>
+                <li class="nav-item"><a class="nav-link" href="/admin/">Admin</a></li>
+                <!--li class="nav-item"><a class="nav-link" href="/customers/new/">Add Customer</a></li>
+                <li class="nav-item"><a class="nav-link" href="/agents/new/">Add Agent</a></li>
+                <li class="nav-item"><a class="nav-link" href="/transactions/new/">Add Transaction</a></li-->
+
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <div class="jumbotron text-center">
+        <h1 class="display-4">Welcome to the XYZ Insurance</h1>
+        <p class="lead">Manage your insurance policies, claims, and payments seamlessly.</p>
+        <a class="btn btn-primary btn-lg" href="{% url 'about' %}" role="button">Learn More</a>
+    </div>
+
+    <!-- API Endpoints Section -->
+    <h2 class="text-center mt-4">XYZ Insurance Portal</h2>
+    <div class="row">
+        <div class="col-md-4">
+            <h4>Users</h4>
+            <p><a href="/users/">Manage Users</a></p>
+        </div>
+        <div class="col-md-4">
+            <h4>Customers</h4>
+            <!-- <p><a href="/api/customers/">View Customers</a></p> -->
+            <p><a href="/customers">View Customers</a></p>
+        </div>
+        <div class="col-md-4">
+            <h4>Policies</h4>
+            <p><a href="/policies/">View Policies</a></p>
+        </div>
+    </div>
+
+    <div class="row mt-3">
+        <div class="col-md-4">
+            <h4>Claims</h4>
+            <p><a href="/claims/">Manage Claims</a></p>
+        </div>
+        <div class="col-md-4">
+            <h4>Payments</h4>
+            <p><a href="/payments/">View Payments</a></p>
+        </div>
+        <div class="col-md-4">
+            <h4>Agents</h4>
+            <p><a href="/agents/">View Agents</a></p>
+        </div>
+    </div>
+
 </div>
+
 {% endblock %}

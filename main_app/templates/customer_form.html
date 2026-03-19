@@ -1,13 +1,11 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Customer Form</title>
-</head>
-<body>
-    <h1>Customer Form</h1>
-    <form method="post">{% csrf_token %}
-        {{ form.as_p }}
-        <button type="submit">Save</button>
-    </form>
-</body>
-</html>
+{% extends 'main_app/base_generic.html' %}
+
+{% block content %}
+  <h2>{% if form.instance.pk %}Edit Customer{% else %}Add New Customer{% endif %}</h2>
+  <form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">{% if form.instance.pk %}Update{% else %}Save{% endif %}</button>
+  </form>
+  <a href="/customers/">Back to Customers</a>
+{% endblock %}

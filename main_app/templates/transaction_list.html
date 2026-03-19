@@ -1,29 +1,35 @@
-{% extends 'base_generic.html' %}
+{% extends "base.html" %}
 
 {% block content %}
-  <h2>Transaction List</h2>
-  <table>
-    <thead>
-      <tr>
-        <th>Customer</th>
-        <th>Policy</th>
-        <th>Amount</th>
-        <th>Actions</th>
-      </tr>
-    </thead>
-    <tbody>
-      {% for transaction in transactions %}
-      <tr>
-        <td><a href="{% url 'transaction_detail' transaction.pk %}">{{ transaction.customer.name }}</a></td>
-        <td>{{ transaction.policy.name }}</td>
-        <td>{{ transaction.amount }}</td>
-        <td>
-          <a href="{% url 'transaction_update' transaction.pk %}">Edit</a> |
-          <a href="{% url 'transaction_delete' transaction.pk %}">Delete</a>
-        </td>
-      </tr>
-      {% endfor %}
-    </tbody>
-  </table>
-  <a href="{% url 'transaction_create' %}">Add New Transaction</a>
+<div class="container mt-4">
+    <h2>Transactions</h2>
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Customer</th>
+                <th>Amount</th>
+                <th>Date</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for transaction in transactions %}
+            <tr>
+                <td>{{ transaction.customer.name }}</td>
+                <td>{{ transaction.amount }}</td>
+                <td>{{ transaction.date }}</td>
+                <td>
+                    <a href="{% url 'transaction_edit' transaction.id %}" class="btn btn-sm btn-warning">Edit</a>
+                    <a href="{% url 'transaction_delete' transaction.id %}" class="btn btn-sm btn-danger">Delete</a>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    <!-- Add Transaction Button -->
+    <div class="mt-3">
+        <a href="{% url 'transaction_create' %}" class="btn btn-primary">Add Transaction</a>
+    </div>
+</div>
 {% endblock %}
