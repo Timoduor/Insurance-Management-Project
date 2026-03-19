@@ -3,3 +3,4 @@
 db.sqlite3
 
 setup_policy.setup_policy
+__pycache__/\ndb.sqlite3\n.env\n*.pyc\n
